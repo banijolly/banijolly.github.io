@@ -2,49 +2,81 @@
 <html>
 <head>
 <title>Genetic Dice</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background: #f9f3ff;
+        margin-top: 50px;
+    }
+    button {
+        font-size: 22px;
+        padding: 15px 25px;
+        border-radius: 12px;
+        border: none;
+        background: #8e44ad;
+        color: white;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    #diceFace {
+        font-size: 100px;
+        margin-top: 40px;
+    }
+    #result {
+        font-size: 40px;
+        margin-top: 15px;
+        color: #333;
+        font-weight: bold;
+    }
+</style>
 </head>
-<body style="font-family: Arial; text-align:center; margin-top:50px;">
 
-<h2>Genetic Dice Roller</h2>
+<body>
 
-<button onclick="roll()" style="font-size:22px; padding:15px 25px;">
-    Roll Dice
-</button>
+<h2 style="color:#5e2a84;">Genetic Dice Roller</h2>
 
-<h1 id="diceNum">🎲</h1>
-<h1 id="result"></h1>
+<button onclick="roll()">🎲 Roll Dice</button>
+
+<div id="diceFace">⚀</div>
+<div id="result"></div>
 
 <script>
-function roll() {
-    document.getElementById("result").innerHTML = ""; // Clear old result
+const diceSymbols = {
+    1: "⚀",
+    2: "⚁",
+    3: "⚂",
+    4: "⚃",
+    5: "⚄",
+    6: "⚅"
+};
 
-    let rollTime = 800; // 0.8 seconds rolling animation
-    let interval = 100; // change number every 100ms
+const map = {
+    1: "A",
+    2: "T",
+    3: "MUTATION",
+    4: "G",
+    5: "C",
+    6: "MUTATION"
+};
+
+function roll() {
+    document.getElementById("result").innerHTML = "";
+
+    let rollTime = 900; // duration of rolling animation
+    let interval = 120; // rolling speed
 
     let rolling = setInterval(() => {
-        // Show a fast-rolling random number
-        let tempNum = Math.floor(Math.random() * 6) + 1;
-        document.getElementById("diceNum").innerHTML = "Rolling: " + tempNum;
+        let temp = Math.floor(Math.random() * 6) + 1;
+        document.getElementById("diceFace").innerHTML = diceSymbols[temp];
     }, interval);
 
-    // After animation ends, show final result
     setTimeout(() => {
         clearInterval(rolling);
 
         let final = Math.floor(Math.random() * 6) + 1;
 
-        let map = {
-            1: "A",
-            2: "T",
-            3: "MUTATION",
-            4: "G",
-            5: "C",
-            6: "MUTATION"
-        };
-
-        document.getElementById("diceNum").innerHTML = "Final: " + final;
+        document.getElementById("diceFace").innerHTML = diceSymbols[final];
         document.getElementById("result").innerHTML = map[final];
-
     }, rollTime);
 }
 </script>
