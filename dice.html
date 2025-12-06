@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Genetic Dice</title>
+</head>
+<body style="font-family: Arial; text-align:center; margin-top:50px;">
+
+<h2>Genetic Dice Roller</h2>
+
+<button onclick="roll()" style="font-size:22px; padding:15px 25px;">
+    Roll Dice
+</button>
+
+<h1 id="diceNum">🎲</h1>
+<h1 id="result"></h1>
+
+<script>
+function roll() {
+    document.getElementById("result").innerHTML = ""; // Clear old result
+
+    let rollTime = 800; // 0.8 seconds rolling animation
+    let interval = 100; // change number every 100ms
+
+    let rolling = setInterval(() => {
+        // Show a fast-rolling random number
+        let tempNum = Math.floor(Math.random() * 6) + 1;
+        document.getElementById("diceNum").innerHTML = "Rolling: " + tempNum;
+    }, interval);
+
+    // After animation ends, show final result
+    setTimeout(() => {
+        clearInterval(rolling);
+
+        let final = Math.floor(Math.random() * 6) + 1;
+
+        let map = {
+            1: "A",
+            2: "T",
+            3: "MUTATION",
+            4: "G",
+            5: "C",
+            6: "MUTATION"
+        };
+
+        document.getElementById("diceNum").innerHTML = "Final: " + final;
+        document.getElementById("result").innerHTML = map[final];
+
+    }, rollTime);
+}
+</script>
+
+</body>
+</html>
